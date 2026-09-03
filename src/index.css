@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-script: "Kaushan Script", cursive;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
+
+  --color-papel-50: #fdfaf4;
+  --color-papel-100: #f8f1e4;
+  --color-papel-200: #f0e4cc;
+  --color-papel-300: #e4d0a8;
+  --color-papel-400: #d3b378;
+  --color-papel-500: #bf9450;
+
+  --color-ladrillo-50: #fdf3ef;
+  --color-ladrillo-100: #fbe2d8;
+  --color-ladrillo-200: #f5c1ac;
+  --color-ladrillo-300: #ec9a7a;
+  --color-ladrillo-400: #de6e4c;
+  --color-ladrillo-500: #c8492b;
+  --color-ladrillo-600: #a63820;
+  --color-ladrillo-700: #832c1a;
+  --color-ladrillo-800: #632117;
+  --color-ladrillo-900: #431712;
+
+  --color-olivo-50: #f4f7ec;
+  --color-olivo-100: #e5ecd3;
+  --color-olivo-200: #cbdaa8;
+  --color-olivo-300: #a9c179;
+  --color-olivo-400: #85a352;
+  --color-olivo-500: #647a38;
+  --color-olivo-600: #4d5f2b;
+  --color-olivo-700: #3b4922;
+
+  --color-dorado-50: #fdf8ec;
+  --color-dorado-100: #f9ecc6;
+  --color-dorado-200: #f2d788;
+  --color-dorado-300: #eabd4d;
+  --color-dorado-400: #dfa128;
+  --color-dorado-500: #c1811b;
+  --color-dorado-600: #966317;
+
+  --color-tinta-50: #f5f4f2;
+  --color-tinta-100: #e6e3de;
+  --color-tinta-200: #c7c1b7;
+  --color-tinta-300: #9d9384;
+  --color-tinta-400: #6d6355;
+  --color-tinta-500: #4a4238;
+  --color-tinta-600: #35302a;
+  --color-tinta-700: #272320;
+  --color-tinta-800: #1c1917;
+  --color-tinta-900: #131110;
+  --color-tinta-950: #0b0a09;
+}
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes pop { from { opacity: 0; transform: scale(.92) } to { opacity: 1; transform: scale(1) } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(-10px) } to { opacity: 1; transform: translateY(0) } }
+
+@layer base {
+  :where(.grid) > * { min-width: 0 }
+  html { -webkit-tap-highlight-color: transparent }
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-papel-50);
+    color: var(--color-tinta-800);
+  }
+}
+
+@layer utilities {
+  .texture-papel {
+    background-image: radial-gradient(circle at 1px 1px, rgba(99,33,23,0.05) 1px, transparent 0);
+    background-size: 26px 26px;
+  }
+  .banda-textura {
+    background-image:
+      linear-gradient(135deg, rgba(255,255,255,.06) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.06) 50%, rgba(255,255,255,.06) 75%, transparent 75%, transparent);
+    background-size: 14px 14px;
+  }
+  .scroll-mt-52 { scroll-margin-top: 13rem }
+  .no-scrollbar::-webkit-scrollbar { display: none }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none }
+  .animate-fade-up { animation: fade-up .4s ease both }
+  .animate-pop { animation: pop .25s ease both }
+  .animate-toast-in { animation: toast-in .3s ease both }
+}
