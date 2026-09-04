@@ -1,25 +1,42 @@
-// Fotos reales de ArtesanAle (Villalba, PR). Fuente: ficha pública de Google
-// Maps del negocio (fotos subidas por el propio negocio y por visitantes).
-// IMPORTANTE (ver LEEME.md): las fotos de platillos específicos (Avancina,
-// Doña Juana) no estaban disponibles en la ficha pública — sustituir por
-// fotos propias del menú en cuanto Ramón las comparta.
+// Fotos de ejemplo (Pexels, libres de uso). Se guardan solo los ids y la URL
+// se arma por tamaño, para no pedir 1100px donde hay un hueco de 260px.
+//
+// IMPORTANTE (ver LEEME.md): lo primero que hay que hacer si Ramón acepta la
+// propuesta es sustituir estas fotos por las del propio negocio.
 
 export const FOTOS_REALES = {
-  interior: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl1-iZ9d_BhU-CZrAG1mLK-2wWUlH758NA-b5hsDmyp_hIkss8Z_I0crsTE_HpO6ss-YWKJYuCDyAQcvoLgKJkOjUfZnYqh_qUr_eyYVyouQ0lR3bf7D9TReHzQi5vp-2sBZhef',
-  stromboli: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmdOecL26N1O50RvUqxIaz7QpausgEe68jXRjbm9J2Dl_ENQDAIYHxWWAxtIcMYNPKnGrq-RUGo1yFvEcLvBCDcVJLylvT1i79CPw93dPKB7rXmC-qN3YQgMgWOHr2jvQQHXh6i0w',
-  ribeye: 'https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmDPEnOUhE453LeppYkPhw7YDWAwXOSo-GUB1Q8IWrR_tcjCzujAqrvq_WNzmxscX7MApfe3hsKi-tbS5qFf2JxjLvOedazTVWGCOhoOHMDj7QlvNd58HdHHq-823Z0IEVgGeo',
+  // ambiente y cabeceras
+  interior: 31969434,      // servicio en salón acogedor
+  hornoLena: 905847,       // pizza saliendo del horno de leña
+
+  // pizzas
+  pizzaAvancina: 6068718,
+  pizzaDonaJuana: 32763320,
+  pizzaVillalbena: 31094832,
+  pizzaMargarita: 31596394,
+
+  // tapas
+  wings: 27562875,
+  bruschetta: 5639423,
+  tabla: 6660311,
+
+  // pastas
+  pastaPesto: 14930726,
+
+  // bebidas
+  cervezaBarril: 1267681,
+  cervezaBotella: 5537952,
 }
 
-// Tamaños con el parámetro real de Google (=w,h) — nunca pidas 900x900
-// para una miniatura de 44px.
+// Pide siempre el tamaño del hueco, nunca 900x900 para una miniatura de 44px.
 export const TAMANOS = {
   thumb: [260, 260], tile: [520, 400], card: [760, 480],
-  banner: [1100, 640], hero: [900, 700], evento: [560, 380],
+  banner: [1100, 640], hero: [760, 760], evento: [560, 380],
 }
 
 export const urlFoto = (key, size = 'thumb') => {
-  const base = FOTOS_REALES[key]
-  if (!base) return null
+  const id = FOTOS_REALES[key]
+  if (!id) return null
   const [w, h] = TAMANOS[size] || TAMANOS.thumb
-  return `${base}=w${w}-h${h}-no`
+  return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`
 }
