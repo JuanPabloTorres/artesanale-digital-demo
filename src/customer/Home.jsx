@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Flame, Percent, Bell, User, Star } from 'lucide-react'
 import { useDemo } from '../store/DemoStore.jsx'
 import { Contenedor, SectionHeader } from '../shell/Layout.jsx'
 import { Tarjeta, Badge, Button } from '../ui/index.jsx'
 import { FotoProducto } from '../ui/FoodArt.jsx'
+import { DetalleProducto } from '../ui/ProductDetail.jsx'
 import { DivisorOrnamentado } from '../ui/Brand.jsx'
 import { formatoMoneda } from '../store/pricing.js'
 import { CATEGORIAS } from '../data/catalogo.js'
@@ -12,6 +13,7 @@ import { EVENTOS } from '../data/events.js'
 
 export default function Home() {
   const { state, addToCart } = useDemo()
+  const [abierto, setAbierto] = useState(null)
   const destacados = state.productos.filter((p) => p.destacado)
   const enProceso = state.ordenes.find((o) => o.cliente === state.cliente.nombre && ['nueva', 'en_proceso'].includes(o.estado))
 
@@ -35,7 +37,7 @@ export default function Home() {
             <Link to="/menu"><Button size="lg" className="mt-2 w-fit">Ver el menú</Button></Link>
           </div>
           <div className="relative min-h-[220px]">
-            <FotoProducto fotoId="pizzaAvancina" size="banner" className="h-full" seed={0} />
+            <FotoProducto fotoId="interior" size="banner" className="h-full" seed={0} />
           </div>
         </div>
       </div>
@@ -69,7 +71,7 @@ export default function Home() {
         <SectionHeader title="Destacados" subtitle="Lo que más piden en Villalba" />
         <div className="grid gap-4 sm:grid-cols-2">
           {destacados.map((p, i) => (
-            <Tarjeta key={p.id} className="flex flex-col overflow-hidden sm:flex-row">
+            <Tarjeta key={p.id} className="flex cursor-pointer flex-col overflow-hidden sm:flex-row" onClick={() => setAbierto(p)}>
               <FotoProducto fotoId={p.fotoId} size="card" className="h-40 sm:h-auto sm:w-40" seed={i} />
               <div className="flex min-w-0 flex-1 flex-col gap-1.5 p-4">
                 <div className="flex items-start justify-between gap-2">
@@ -79,7 +81,7 @@ export default function Home() {
                 <p className="line-clamp-2 text-sm text-tinta-500">{p.descripcion}</p>
                 <div className="mt-auto flex items-center justify-between pt-2">
                   <span className="font-semibold text-ladrillo-600">{formatoMoneda(p.precio)}</span>
-                  <Button size="sm" onClick={() => addToCart(p.id)}>Agregar</Button>
+                  <Button size="sm" onClick={(e) => { e.stopPropagation(); addToCart(p.id) }}>Agregar</Button>
                 </div>
               </div>
             </Tarjeta>
@@ -126,6 +128,8 @@ export default function Home() {
 
       <DivisorOrnamentado />
       <p className="pb-4 text-center font-serif italic text-tinta-400">"Hecho a la leña, servido con cariño villalbeño."</p>
+
+      <DetalleProducto producto={abierto} onClose={() => setAbierto(null)} onAgregar={addToCart} />
     </Contenedor>
   )
 }
