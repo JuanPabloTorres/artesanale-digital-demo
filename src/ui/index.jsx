@@ -36,9 +36,9 @@ export function Cinta({ children, className = '' }) {
   )
 }
 
-export function Tarjeta({ children, className = '', hover = true }) {
+export function Tarjeta({ children, className = '', hover = true, ...props }) {
   return (
-    <div className={`rounded-2xl border border-papel-300/70 bg-white shadow-sm ${hover ? 'transition hover:border-dorado-300 hover:shadow-md' : ''} ${className}`}>
+    <div className={`rounded-2xl border border-papel-300/70 bg-white shadow-sm ${hover ? 'transition hover:border-dorado-300 hover:shadow-md' : ''} ${className}`} {...props}>
       {children}
     </div>
   )
