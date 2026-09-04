@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { urlFoto } from '../data/fotos.js'
 
 const PALETAS = ['#c8492b', '#dfa128', '#647a38', '#832c1a']
@@ -18,17 +18,39 @@ function IlustracionFallback({ seed = 0 }) {
   )
 }
 
+// Pexels rechaza parte de la ráfaga cuando la página pide 12 fotos a la vez.
+// En vez de caer a la ilustración al primer fallo, reintentamos con espera.
+const MAX_REINTENTOS = 4
+
 export function FotoProducto({ fotoId, size = 'tile', className = '', seed = 0 }) {
-  const [error, setError] = useState(false)
-  const url = urlFoto(fotoId, size)
+  const [intento, setIntento] = useState(0)
+  const [rendido, setRendido] = useState(false)
+  const base = urlFoto(fotoId, size)
+
+  useEffect(() => { setIntento(0); setRendido(false) }, [base])
+
+  const alFallar = () => {
+    if (intento < MAX_REINTENTOS) {
+      const espera = 600 * (intento + 1)
+      setTimeout(() => setIntento((n) => n + 1), espera)
+    } else {
+      setRendido(true)
+    }
+  }
+
+  const url = base ? (intento ? base + '&r=' + intento : base) : null
+
   return (
     <div className={`relative min-w-0 overflow-hidden bg-papel-100 ${className}`}>
-      {url && !error ? (
+      {url && !rendido ? (
         <img
+          key={intento}
           src={url}
           alt=""
           loading="lazy"
-          onError={() => setError(true)}
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onError={alFallar}
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
