@@ -89,9 +89,9 @@ export default function Resumen() {
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <div>
           <SectionHeader title="Órdenes por hora" />
-          <Tarjeta className="flex h-40 items-end gap-2 p-5">
+          <Tarjeta className="flex h-40 items-stretch gap-2 p-5">
             {HORAS.map((h) => (
-              <div key={h.h} className="flex flex-1 flex-col items-center gap-1.5">
+              <div key={h.h} className="flex flex-1 flex-col items-center justify-end gap-1.5">
                 <div className="w-full rounded-t-md bg-ladrillo-400" style={{ height: `${h.v}%` }} />
                 <span className="text-[10px] text-tinta-400">{h.h}</span>
               </div>
