@@ -39,7 +39,7 @@ export default function Canales() {
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ladrillo-500 text-xs font-bold text-white">A</span>
               <Wordmark className="scale-90 origin-left" />
             </div>
-            <FotoProducto fotoId="pizzaAvancina" size="card" className="h-56" />
+            <FotoProducto fotoId="interior" size="card" className="h-56" />
             <div className="space-y-2 p-3.5">
               <div className="flex gap-3 text-tinta-600"><Heart size={18} /><MessageCircle size={18} /><Send size={18} /></div>
               <p className="text-sm text-tinta-700"><span className="font-semibold">artesanalepr</span> Pide tu Avancina desde el portal — llega directo a cocina 🔥 Link en bio.</p>
