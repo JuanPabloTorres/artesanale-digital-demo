@@ -22,10 +22,12 @@ export const FOTOS_REALES = {
 
   // pastas
   pastaPesto: 14930726,
+  pastaCamarones: 29208502,
 
   // bebidas
   cervezaBarril: 1267681,
   cervezaBotella: 5537952,
+  jugoNaranja: 14510445,
 }
 
 // Pide siempre el tamaño del hueco, nunca 900x900 para una miniatura de 44px.
