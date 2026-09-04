@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ShoppingBag, UtensilsCrossed } from 'lucide-react'
 import { useDemo } from '../store/DemoStore.jsx'
 import { Contenedor, PageHeader } from '../shell/Layout.jsx'
 import { Tarjeta, Button, Field } from '../ui/index.jsx'
 import { formatoMoneda, calcularTotales } from '../store/pricing.js'
+
+const OPCIONES_TIPO = [
+  { valor: 'Recoger', icon: ShoppingBag, desc: 'Pasas a buscarla al mostrador' },
+  { valor: 'Mesa', icon: UtensilsCrossed, desc: 'Te la servimos en tu mesa' },
+]
 
 export default function Checkout() {
   const { state, checkout } = useDemo()
@@ -23,16 +29,28 @@ export default function Checkout() {
         <div className="space-y-4">
           <Tarjeta className="p-5">
             <Field label="Tipo de entrega">
-              <div className="flex gap-2">
-                {['Recoger', 'Mesa'].map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTipo(t)}
-                    className={`flex-1 rounded-xl border px-4 py-2.5 text-sm font-semibold ${tipo === t ? 'border-ladrillo-500 bg-ladrillo-50 text-ladrillo-600' : 'border-tinta-200 text-tinta-500'}`}
-                  >
-                    {t}
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 gap-3">
+                {OPCIONES_TIPO.map((o) => {
+                  const activo = tipo === o.valor
+                  return (
+                    <button
+                      key={o.valor}
+                      type="button"
+                      onClick={() => setTipo(o.valor)}
+                      aria-pressed={activo}
+                      className={`flex flex-col items-start gap-2 rounded-2xl border-2 p-4 text-left transition ${activo ? 'border-ladrillo-500 bg-ladrillo-50' : 'border-tinta-200 bg-white hover:border-tinta-300'}`}
+                    >
+                      <div className="flex w-full items-center justify-between">
+                        <o.icon size={20} className={activo ? 'text-ladrillo-600' : 'text-tinta-400'} />
+                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${activo ? 'border-ladrillo-500' : 'border-tinta-300'}`}>
+                          {activo && <span className="h-2.5 w-2.5 rounded-full bg-ladrillo-500" />}
+                        </span>
+                      </div>
+                      <span className={`font-display uppercase tracking-wide ${activo ? 'text-ladrillo-700' : 'text-tinta-700'}`}>{o.valor}</span>
+                      <span className="text-xs text-tinta-400">{o.desc}</span>
+                    </button>
+                  )
+                })}
               </div>
             </Field>
           </Tarjeta>
