@@ -5,6 +5,7 @@ import { useDemo } from '../store/DemoStore.jsx'
 import { Contenedor, PageHeader } from '../shell/Layout.jsx'
 import { Tarjeta, Chip, Button, Badge, Input } from '../ui/index.jsx'
 import { FotoProducto } from '../ui/FoodArt.jsx'
+import { DetalleProducto } from '../ui/ProductDetail.jsx'
 import { formatoMoneda } from '../store/pricing.js'
 import { CATEGORIAS } from '../data/catalogo.js'
 
@@ -13,6 +14,7 @@ export default function Menu() {
   const [params, setParams] = useSearchParams()
   const catActiva = params.get('cat') || 'todas'
   const [busqueda, setBusqueda] = useState('')
+  const [abierto, setAbierto] = useState(null)
 
   const productos = useMemo(() => {
     return state.productos.filter((p) => {
@@ -42,11 +44,11 @@ export default function Menu() {
         {productos.map((p, i) => {
           const fav = state.cliente.favoritos.includes(p.id)
           return (
-            <Tarjeta key={p.id} className="flex flex-col overflow-hidden">
+            <Tarjeta key={p.id} className="flex cursor-pointer flex-col overflow-hidden" onClick={() => setAbierto(p)}>
               <div className="relative h-40">
                 <FotoProducto fotoId={p.fotoId} size="card" className="h-full" seed={i} />
                 <button
-                  onClick={() => toggleFavorite(p.id)}
+                  onClick={(e) => { e.stopPropagation(); toggleFavorite(p.id) }}
                   className={`absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 ${fav ? 'text-ladrillo-500' : 'text-tinta-300'}`}
                 >
                   <Heart size={16} fill={fav ? 'currentColor' : 'none'} />
@@ -65,7 +67,7 @@ export default function Menu() {
                 <p className="line-clamp-2 text-sm text-tinta-500">{p.descripcion}</p>
                 <div className="mt-auto flex items-center justify-between pt-2">
                   <span className="font-semibold text-ladrillo-600">{formatoMoneda(p.precio)}</span>
-                  <Button size="sm" disabled={!p.disponible} onClick={() => addToCart(p.id)}>Agregar</Button>
+                  <Button size="sm" disabled={!p.disponible} onClick={(e) => { e.stopPropagation(); addToCart(p.id) }}>Agregar</Button>
                 </div>
               </div>
             </Tarjeta>
@@ -76,6 +78,8 @@ export default function Menu() {
         )}
       </div>
       <p className="mt-8 pb-2 text-center text-xs text-tinta-400">Datos de ejemplo para esta demostración — precios reales a confirmar con Ramón.</p>
+
+      <DetalleProducto producto={abierto} onClose={() => setAbierto(null)} onAgregar={addToCart} />
     </Contenedor>
   )
 }
