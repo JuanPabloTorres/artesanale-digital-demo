@@ -62,7 +62,7 @@ export const PRODUCTOS = [
     id: 'pa-camarones', categoria: 'pastas', nombre: 'Linguine en salsa de camarones',
     descripcion: 'Camarones salteados en salsa criolla ligera sobre linguine.',
     detalle: 'Camarones salteados en una salsa criolla ligera, servidos sobre linguine al dente. Un plato con más cuerpo, pensado para quien busca algo más allá de la pizza.',
-    precio: 18.0, fotoId: null, disponible: false,
+    precio: 18.0, fotoId: 'pastaCamarones', disponible: false,
   },
   {
     id: 'b-cerveza-barril', categoria: 'bebidas', nombre: 'Cerveza artesanal de barril',
@@ -80,7 +80,7 @@ export const PRODUCTOS = [
     id: 'b-jugo-naranja', categoria: 'bebidas', nombre: 'Jugo de naranja natural',
     descripcion: 'Exprimido fresco cada día.',
     detalle: 'Naranjas exprimidas frescas cada día, sin azúcar añadida. La opción sin alcohol favorita de la casa.',
-    precio: 4.5, fotoId: null, disponible: true,
+    precio: 4.5, fotoId: 'jugoNaranja', disponible: true,
   },
 ]
 
