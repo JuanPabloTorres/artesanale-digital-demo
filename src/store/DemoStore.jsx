@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react'
 import { semilla } from './seed.js'
 
-const KEY = 'artesanale-demo-v1'
+const KEY = 'artesanale-demo-v3'
 
 const cargar = () => {
   try {
